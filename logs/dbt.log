@@ -1,0 +1,55 @@
+[0m16:23:38.427591 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49DCF0850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49EC7D030>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49EC7CB20>]}
+
+
+============================== 16:23:38.545708 | a54c119a-912e-4179-b9ca-b23efe615e97 ==============================
+[0m16:23:38.545708 [info ] [MainThread]: Running with dbt=1.10.15
+[0m16:23:38.546710 [debug] [MainThread]: running dbt with arguments {'no_print': 'None', 'printer_width': '80', 'invocation_command': 'dbt init netflix_dbt', 'profiles_dir': 'C:\\Users\\PC\\.dbt', 'target_path': 'None', 'warn_error': 'None', 'static_parser': 'True', 'partial_parse': 'True', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'fail_fast': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_path': 'logs', 'use_experimental_parser': 'False', 'version_check': 'True', 'quiet': 'False', 'introspect': 'True', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'use_colors': 'True', 'cache_selected_only': 'False', 'write_json': 'True'}
+[0m16:23:38.975668 [debug] [MainThread]: Starter project path: E:\My Document\Data_Engineer_Projects\Netflix-Analysis-DBT-Project\.venv\lib\site-packages\dbt\include\starter_project
+[0m16:23:39.043896 [info ] [MainThread]: 
+Your new dbt project "netflix_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:23:39.045904 [info ] [MainThread]: Setting up your profile.
+[0m16:31:12.932462 [info ] [MainThread]: Profile netflix_dbt written to C:\Users\PC\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m16:31:12.934460 [debug] [MainThread]: Command `dbt init` succeeded at 16:31:12.934460 after 454.69 seconds
+[0m16:31:12.935461 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49DCF0850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49C14C7C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001B49C14F310>]}
+[0m16:31:12.936462 [debug] [MainThread]: Flushing usage events
+[0m16:31:14.221434 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m14:09:50.439902 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC6E9D7580>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC70D1EDA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC70D1EF80>]}
+
+
+============================== 14:09:50.443409 | c81ce493-a137-437d-9d6a-92b251e153f0 ==============================
+[0m14:09:50.443409 [info ] [MainThread]: Running with dbt=1.10.15
+[0m14:09:50.444411 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'no_print': 'None', 'profiles_dir': 'C:\\Users\\PC\\.dbt', 'printer_width': '80', 'target_path': 'None', 'warn_error': 'None', 'indirect_selection': 'eager', 'partial_parse': 'True', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_path': 'logs', 'use_experimental_parser': 'False', 'version_check': 'True', 'quiet': 'False', 'introspect': 'True', 'empty': 'False', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'invocation_command': 'dbt run --model stg_ratings', 'cache_selected_only': 'False', 'write_json': 'True'}
+[0m14:09:50.445410 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+Usage of `--models`, `--model`, and `-m` is deprecated in favor of `--select` or
+`-s`.
+[0m14:09:50.445410 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecation', 'label': 'c81ce493-a137-437d-9d6a-92b251e153f0', 'property_': 'warn', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC70D1F070>]}
+[0m14:09:50.445410 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path E:\My Document\Data_Engineer_Projects\Netflix-Analysis-DBT-Project\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m14:09:50.446912 [warn ] [MainThread]: [[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+Summary of encountered deprecations:
+- ModelParamUsageDeprecation: 1 occurrence
+To see all deprecation instances instead of just the first occurrence of each,
+run command again with the `--show-all-deprecations` flag. You may also need to
+run with `--no-partial-parse` as some deprecations are only encountered during
+parsing.
+[0m14:09:50.448418 [debug] [MainThread]: Command `dbt run` failed at 14:09:50.447415 after 0.17 seconds
+[0m14:09:50.448418 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC6E9D7580>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC70D1ECE0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC70D1EFE0>]}
+[0m14:09:50.449418 [debug] [MainThread]: Flushing usage events
+[0m14:09:51.742523 [debug] [MainThread]: An error was encountered while trying to flush usage events

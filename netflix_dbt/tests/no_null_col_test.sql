@@ -1,0 +1,1 @@
+{{ no_null_in_columns(ref('fct_genome_scores')) }}
