@@ -10,6 +10,7 @@ WITH src_ratings AS (
 )
 
 SELECT
+    {{ dbt_utils.generate_surrogate_key(['user_id', 'movie_id']) }} AS row_key,
     user_id,
     movie_id,
     rating,
@@ -23,7 +24,7 @@ WHERE rating IS NOT NULL
 
 -- Cách hoạt động:
 -- Lần chạy đầu tiên (is_incremental() = False):
--- - Tải toàn bộ dữ liệu từ src_ratings.
+-- - Tải toàn bộ dữ liệu từ stg_ratings.
 -- Các lần chạy sau (is_incremental() = True):
 -- - Chỉ tải dữ liệu mới có rating_timestamp lớn hơn timestamp lớn nhất hiện có trong bảng đích.
 

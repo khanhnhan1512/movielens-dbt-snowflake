@@ -1,10 +1,16 @@
-WITH src_movies AS (
-    SELECT * FROM {{ ref('stg_movies') }}
+with movies as (
+    select * from {{ ref('stg_movies') }}
+),
+links as (
+    select * from {{ ref('stg_links') }}
 )
 
-SELECT
-    movie_id,
-    INITCAP(TRIM(title)) AS movie_title,
-    SPLIT(genres, '|') AS genre_array,
-    genres
-FROM src_movies
+SELECT 
+    m.movie_id,
+    m.title,
+    m.release_year,
+    l.imdb_id,
+    l.tmdb_id,
+    m.genres_array
+FROM movies m
+LEFT JOIN links l ON m.movie_id = l.movie_id

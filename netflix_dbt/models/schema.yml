@@ -1,76 +1,115 @@
+version: 2
+
 models:
+  # ---------------------------------------------------------------------------
+  # DIMENSIONS
+  # ---------------------------------------------------------------------------
   - name: dim_movies
-    description: Dimension table for cleansed movie metadata
+    description: Dimension table for cleansed movie metadata, including release year and genres.
     columns:
       - name: movie_id
-        description: Primary key of the movie
+        description: Primary key of the movie (matches MovieLens ID)
         tests:
-          # - unique
+          - unique
           - not_null
-      - name: movie_title
-        description: Standardized movie title
+      - name: title
+        description: Standardized movie title (Year removed)
         tests:
           - not_null
-      - name: genre_array
-        description: List of genres in array format
-      - name: genres
-        description: Raw genre string from source
+      - name: release_year
+        description: Year extracted from the title
+      - name: imdb_id
+        description: an identifier for movies used by IMDb
+      - name: tmdb_id
+        description: an identifier for movies used by TMDB
+      - name: genres_array
+        description: List of genres in Snowflake ARRAY format
 
   - name: dim_users
-    description: Dimension table of unique users from both ratings and tags
+    description: Derived dimension table of unique users calculated from ratings history.
     columns:
       - name: user_id
         description: Unique user identifier
         tests:
-          # - unique
+          - unique
           - not_null
+      - name: first_rating_timestamp
+        description: Timestamp of the user's first rating
+      - name: last_rating_timestamp
+        description: Timestamp of the user's most recent rating
+      - name: total_ratings
+        description: Total number of movies rated by this user
+      - name: avg_rating_score
+        description: Average rating score given by this user
 
   - name: dim_genome_tags
-    description: Dimension table of genome tag labels
+    description: Dimension table of genome tag definitions.
     columns:
       - name: tag_id
         description: Unique tag ID
         tests:
+          - unique
           - not_null
-          # - unique
       - name: tag_name
         description: Cleaned, human-readable tag name
         tests:
           - not_null
 
+  # ---------------------------------------------------------------------------
+  # FACTS
+  # ---------------------------------------------------------------------------
   - name: fct_ratings
-    description: Fact table of user ratings for movies
+    description: Transactional fact table of user ratings.
     columns:
+      - name: row_key
+        description: Surrogate key (MD5 of user_id + movie_id). Ensures uniqueness per user-movie pair.
+        tests:
+          - unique
+          - not_null
       - name: user_id
         description: Foreign key to dim_users
         tests:
           - not_null
+          - relationships:
+              arguments: 
+                to: ref('dim_users')
+                field: user_id
       - name: movie_id
         description: Foreign key to dim_movies
         tests:
           - not_null
           - relationships:
-              to: ref('dim_movies')
-              field: movie_id
+              arguments:
+                to: ref('dim_movies')
+                field: movie_id
       - name: rating
-        description: User's rating for a movie
+        description: User's rating (0.5 - 5.0)
         tests:
           - not_null
+          - accepted_values:
+              values: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
       - name: rating_timestamp
-        description: Unix timestamp when the rating was made
+        description: Timestamp when the rating occurred
 
   - name: fct_genome_scores
-    description: Fact table of relevance scores per movie and tag
+    description: Fact table containing relevance scores for movie-tag pairs.
     columns:
       - name: movie_id
-        description: Foreign key to dim_movies
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_movies')
+                field: movie_id
       - name: tag_id
-        description: Foreign key to dim_genome_tags
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_genome_tags')
+                field: tag_id
       - name: relevance_score
-        description: Relevance score (0 to 1) for tag's association with movie
+        description: Relevance score representing how strongly the tag applies to the movie.
         tests:
           - not_null
+          - check_valid_score

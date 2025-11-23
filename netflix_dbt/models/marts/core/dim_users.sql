@@ -1,13 +1,12 @@
 WITH ratings AS (
-    SELECT DISTINCT user_id FROM {{ ref('stg_ratings') }}
-),
-tags AS (
-    SELECT DISTINCT user_id FROM {{ ref('stg_tags') }}
+    SELECT * FROM {{ ref('stg_ratings') }}
 )
 
-SELECT DISTINCT user_id
-FROM (
-    SELECT * FROM ratings
-    UNION
-    SELECT * FROM tags
-)
+SELECT
+    user_id,
+    MIN(rating_timestamp) AS first_rating_timestamp,
+    MAX(rating_timestamp) AS last_rating_timestamp,
+    COUNT(movie_id) AS total_ratings,
+    avg(rating) AS average_rating_score
+FROM ratings
+GROUP BY user_id

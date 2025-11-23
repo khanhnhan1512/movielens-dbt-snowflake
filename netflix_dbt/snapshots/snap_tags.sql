@@ -17,6 +17,5 @@ SELECT
     tag,
     CAST(tag_timestamp AS TIMESTAMP_NTZ) AS tag_timestamp -- snapshot requires TIMESTAMP_NTZ for proper time zone handling
 FROM {{ ref('stg_tags') }}
-LIMIT 100
 
 {% endsnapshot %}
