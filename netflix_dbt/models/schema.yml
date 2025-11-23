@@ -93,6 +93,11 @@ models:
 
   - name: fct_genome_scores
     description: Fact table containing relevance scores for movie-tag pairs.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - movie_id
+            - tag_id
     columns:
       - name: movie_id
         tests:
@@ -113,3 +118,33 @@ models:
         tests:
           - not_null
           - check_valid_score
+  - name: fct_tags
+    description: Fact table containing user-generated tags for movies.
+    columns:
+      - name: row_key
+        description: Surrogate key
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: Foreign key to dim_users
+        tests:
+          - not_null
+          - relationships:
+              arguments: 
+                to: ref('dim_users')
+                field: user_id
+      - name: movie_id
+        description: Foreign key to dim_movies
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_movies')
+                field: movie_id
+      - name: tag
+        description: The content of the tag applied by the user.
+        tests:
+          - not_null
+      - name: tag_timestamp
+        description: Timestamp when the tag was applied.
