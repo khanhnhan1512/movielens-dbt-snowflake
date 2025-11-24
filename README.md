@@ -146,7 +146,7 @@ You can use `dbt test` to run all tests defined in the project. Below is an exam
    uv sync
    ```
 3. Configure the `profiles.yml` file with your Snowflake connection details as what you set up earlier in Snowflake.
-4. Run dbt commands:
+4. Run dbt commands in the following order:
    - Update packages:
      ```bash
      dbt deps
