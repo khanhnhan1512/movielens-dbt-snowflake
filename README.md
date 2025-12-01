@@ -6,7 +6,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-This project implements an end-to-end data pipeline processing the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). The goal is to transform raw movie data into a `Dimensional Data Model` following the `Kimball` methodology, specifically implementing a `Galaxy Schema` architecture to handle multiple business processes.
+This project implements an end-to-end data pipeline processing the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). The goal is to transform raw movie data into a `Dimensional Data Model` following the `Kimball` methodology, specifically implementing a `Galaxy Schema (Fact Constellation)` architecture to handle multiple business processes.
 
 The pipeline ingests raw CSVs from `AWS S3` into `Snowflake`, then utilizes `dbt (data build tool)` to orchestrate transformation, testing, and documentation.
 
