@@ -5,7 +5,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-Dự án này triển khai một data pipeline end-to-end để xử lý [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). Mục tiêu là chuyển đổi dữ liệu phim thô thành mô hình **Star Schema** chất lượng cao, được tối ưu hóa cho analytics và reporting.
+Dự án này triển khai một data pipeline end-to-end để xử lý [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). Mục tiêu là chuyển đổi dữ liệu phim thô thành mô hình `Dữ liệu Đa chiều` theo phương pháp Kimball, cụ thể là kiến trúc `Galaxy Schema` để xử lý nhiều quy trình nghiệp vụ cùng chia sẻ các dimension chung
 
 Pipeline thực hiện ingest các file CSV thô từ `AWS S3` vào `Snowflake`, sau đó sử dụng `dbt (data build tool)` để điều phối quá trình transformation, testing và documentation.
 
